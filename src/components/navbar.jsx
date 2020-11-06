@@ -23,8 +23,8 @@ function NavBar() {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/movies">
-              Movies
+            <NavLink className="nav-link" to="/richieste">
+              Richieste
             </NavLink>
           </li>
           <li className="nav-item">

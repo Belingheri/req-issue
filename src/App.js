@@ -4,8 +4,6 @@ import { ToastContainer } from "react-toastify";
 
 //import logo from "./logo.svg";
 import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import { getcurrentUser } from "./services/authService";
 import UserContext from "./context/userContext";
@@ -16,6 +14,8 @@ import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import Logout from "./components/logout";
 import Home from "./components/home";
+import Richieste from "./components/richieste";
+import Test from "./components/test";
 
 function App() {
   const [user] = useState(getcurrentUser());
@@ -30,6 +30,8 @@ function App() {
           <Route path="/registra" component={RegisterForm} />
           <Route path="/home" component={Home} />
           <Route path="/not-found" component={NotFound} />
+          <Route path="/richieste" component={Richieste} />
+          <Route path="/test" component={Test} />
           <Redirect from="/" exact to="/home" />
           <Redirect to="not-found" />
         </Switch>

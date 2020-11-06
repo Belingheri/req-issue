@@ -8,7 +8,7 @@ function Home() {
   return (
     <Fragment>
       <h1>Benvenuto {user && user.name ? user.name : "straniero"} !</h1>
-      <NavLink to="/login">Effettua il login</NavLink>
+      {!user && <NavLink to="/login">Effettua il login</NavLink>}
     </Fragment>
   );
 }

@@ -1,16 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 function ArrowOrder({ order }) {
   if (order !== "asc" && order !== "desc") return null;
 
-  const getClass = () => {
-    let className = "fa fa-arrow-";
-    className += order === "asc" ? "down" : "up";
-    return className;
-  };
-
-  return <i className={getClass()} aria-hidden="true"></i>;
+  return <FontAwesomeIcon icon={order === "asc" ? faArrowUp : faArrowDown} />;
 }
 
 ArrowOrder.propTypes = {
