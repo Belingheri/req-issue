@@ -16,6 +16,7 @@ import Logout from "./components/logout";
 import Home from "./components/home";
 import Richieste from "./components/richieste";
 import Test from "./components/test";
+import RichiesteForm from "./components/richiesteForm";
 
 function App() {
   const [user] = useState(getcurrentUser());
@@ -30,6 +31,7 @@ function App() {
           <Route path="/registra" component={RegisterForm} />
           <Route path="/home" component={Home} />
           <Route path="/not-found" component={NotFound} />
+          <Route path="/richieste/:id" component={RichiesteForm} />
           <Route path="/richieste" component={Richieste} />
           <Route path="/test" component={Test} />
           <Redirect from="/" exact to="/home" />

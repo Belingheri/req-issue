@@ -9,3 +9,6 @@ export function register(user) {
     name: user.name,
   });
 }
+export function get() {
+  return httpService.get(url);
+}

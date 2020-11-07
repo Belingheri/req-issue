@@ -77,7 +77,7 @@ class Form extends Component {
    * @param {string} label
    * @param {strign} type default "text"
    */
-  renderInput(name, label, type = "text") {
+  renderInput(name, label, type = "text", ...rest) {
     const { data, errors } = this.state;
 
     return (
@@ -88,6 +88,7 @@ class Form extends Component {
         label={label}
         onChange={this.handleChange}
         error={errors[name]}
+        {...rest}
       />
     );
   }

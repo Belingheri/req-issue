@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 
-function TableBody({ data, columns }) {
+function TableBody({ data, columns, proprietyId, onClickRow }) {
   const renderCell = (row, item) => {
     if (item.content) return item.content(row);
 
@@ -13,9 +12,14 @@ function TableBody({ data, columns }) {
   return (
     <tbody>
       {data.map((row) => (
-        <tr key={uuidv4()}>
+        <tr
+          key={row[proprietyId]}
+          onClick={(e) => {
+            if (onClickRow) onClickRow(row);
+          }}
+        >
           {columns.map((item) => (
-            <td key={uuidv4()}>{renderCell(row, item)}</td>
+            <td key={row[proprietyId] + item.path}>{renderCell(row, item)}</td>
           ))}
         </tr>
       ))}
@@ -26,6 +30,12 @@ function TableBody({ data, columns }) {
 TableBody.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
+  proprietyId: PropTypes.string,
+  onClickRow: PropTypes.func,
+};
+
+TableBody.defaultProps = {
+  proprietyId: "_id",
 };
 
 export default TableBody;

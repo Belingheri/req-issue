@@ -6,6 +6,7 @@ import Table from "./common/table";
 
 import { get } from "./../services/richiesteService";
 import { decodeError } from "./../util/decode";
+import { useHistory } from "react-router-dom";
 
 function Richieste() {
   const [allRichieste, setAllRichieste] = useState([]);
@@ -13,6 +14,7 @@ function Richieste() {
     path: "priorita",
     order: "asc",
   });
+  const history = useHistory();
 
   const columns = [
     { path: "priorita", value: "Prior" },
@@ -41,12 +43,17 @@ function Richieste() {
     getRichieste();
   }, []);
 
+  const handleClickRow = (richiesta) => {
+    history.push(`/richieste/${richiesta._id}`);
+  };
+
   return (
     <Table
       columns={columns}
       data={allRichieste}
       sortedColumn={sortedColumn}
       onSort={handleOnSort}
+      onClickRow={handleClickRow}
     />
   );
 }
