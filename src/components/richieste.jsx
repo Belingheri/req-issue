@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Table from "./common/table";
@@ -32,7 +31,7 @@ function Richieste() {
     try {
       const { data: richieste } = await get();
       setAllRichieste(richieste);
-      console.log(richieste);
+      //console.log(richieste);
     } catch (e) {
       if (e.response && e.response.data)
         toast.error(decodeError(e.response.data));
