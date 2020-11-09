@@ -9,6 +9,7 @@ import * as userService from "../services/userService";
 import * as statiService from "../services/statiService";
 import Input from "./common/input";
 import Select from "./common/select";
+import MultipleInput from "./common/multipleInput";
 
 function RichiesteForm(props) {
   const [richiesta, setRichiesta] = useState({
@@ -154,6 +155,12 @@ function RichiesteForm(props) {
             />
           </div>
         </div>
+        <MultipleInput
+          values={richiesta.idResponsabili}
+          options={allDeveloper}
+          name="idResponsabili"
+          label="Responsabili"
+        />
       </form>
     </div>
   );
