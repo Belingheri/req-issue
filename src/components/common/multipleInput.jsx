@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import * as _ from "lodash";
+import { faUserMinus } from "@fortawesome/free-solid-svg-icons";
+
 import SearchEditBox from "./searchEditBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function MultipleInput({
   name,
   label,
@@ -15,35 +19,47 @@ function MultipleInput({
   const nowSelected = values.map((valore) =>
     options.find((opzione) => opzione[propretyId] === valore)
   );
+  const realOptions = _.differenceBy(options, nowSelected, propretyId);
   const renderItem = (item) => {
-    return <h1>{`${item[propretyId]} - ${item[propretyName]}`}</h1>;
+    return (
+      <li key={item[propretyId]}>
+        {item[propretyName]}
+        <button
+          className="btn btn-outline-danger m-2"
+          onClick={(e) => handleRemove(e, item[propretyId])}
+        >
+          <FontAwesomeIcon icon={faUserMinus} />
+        </button>
+      </li>
+    );
+  };
+  const handleRemove = (e, value) => {
+    e.preventDefault();
+    onRemove(value);
   };
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
       <SearchEditBox
-        items={options}
+        items={realOptions}
         proprietyId={propretyId}
         proprietyName={propretyName}
         onSelected={onAdd}
       />
       {error && <div className="alert alert-danger">{error}</div>}
-      {nowSelected.map((e) => renderItem(e))}
+      <ol>{nowSelected.map((e) => renderItem(e))}</ol>
     </div>
   );
 }
 
 MultipleInput.propTypes = {
   name: PropTypes.string.isRequired,
-  error: PropTypes.string,
-  values: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-  ]),
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  values: PropTypes.array.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  error: PropTypes.string,
   propretyName: PropTypes.string,
   propretyId: PropTypes.string,
 };

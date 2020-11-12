@@ -120,6 +120,20 @@ function RichiesteForm(props) {
     setErrors(actualErrors);
   };
 
+  const handleAddResponsabile = (idResponsabile) => {
+    let data = { ...richiesta };
+    data.idResponsabili.push(idResponsabile);
+    setRichiesta(data);
+  };
+
+  const handleRemoveResponsabile = (idResponsabile) => {
+    let data = { ...richiesta };
+    data.idResponsabili = data.idResponsabili.filter(
+      (e) => e !== idResponsabile
+    );
+    setRichiesta(data);
+  };
+
   return (
     <div>
       <h1>Richiesta</h1>
@@ -160,6 +174,8 @@ function RichiesteForm(props) {
           options={allDeveloper}
           name="idResponsabili"
           label="Responsabili"
+          onAdd={handleAddResponsabile}
+          onRemove={handleRemoveResponsabile}
         />
       </form>
     </div>
