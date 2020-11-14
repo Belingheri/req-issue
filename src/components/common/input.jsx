@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Input = ({ name, label, error, type, ...rest }) => {
+  const getInputClass = () =>
+    type === "range" ? "form-control-range my-2" : "form-control";
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -9,7 +11,13 @@ const Input = ({ name, label, error, type, ...rest }) => {
         <textarea {...rest} name={name} id={name} className="form-control" />
       )}
       {type !== "textarea" && (
-        <input {...rest} name={name} id={name} className="form-control" />
+        <input
+          {...rest}
+          type={type}
+          name={name}
+          id={name}
+          className={getInputClass()}
+        />
       )}
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
