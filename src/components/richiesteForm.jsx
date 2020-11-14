@@ -177,6 +177,15 @@ function RichiesteForm(props) {
           onAdd={handleAddResponsabile}
           onRemove={handleRemoveResponsabile}
         />
+        <Input
+          name="note"
+          label="Note"
+          placeholder="..."
+          value={richiesta.note}
+          onChange={handleChange}
+          error={errors.note}
+          type="textarea"
+        />
       </form>
     </div>
   );
