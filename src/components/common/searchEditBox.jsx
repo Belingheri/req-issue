@@ -10,7 +10,13 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-function SearchEditBox({ items, onSelected, proprietyId, proprietyName }) {
+function SearchEditBox({
+  items,
+  onSelected,
+  label,
+  proprietyId,
+  proprietyName,
+}) {
   const [term, setTerm] = useState("");
   const [error, setError] = useState("");
   const textInput = useRef(null);
@@ -31,7 +37,7 @@ function SearchEditBox({ items, onSelected, proprietyId, proprietyName }) {
   };
   return (
     <div>
-      <h4>Clientside Search</h4>
+      <h4>{label}</h4>
       <Combobox aria-label="Cities">
         <ComboboxInput
           className="city-search-input"
