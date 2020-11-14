@@ -27,12 +27,14 @@ function RichiesteForm(props) {
   const [allTipi, setAllTipi] = useState([]);
   const [allStati, setAllStati] = useState([]);
   const [allDeveloper, setAllDeveloper] = useState([]);
-  const [allUser, setAllUser] = useState([]);
   const schema = {
     descrizione: Joi.string().required().min(4).max(50),
     idTipo: Joi.string().required(),
     idStato: Joi.string().required(),
     idResponsabili: Joi.array().items(Joi.string()).required(),
+    note: Joi.string().max(100),
+    avanzamento: Joi.number().min(0).max(100),
+    priorita: Joi.number().min(0).max(100),
   };
 
   const getRichiesta = async (id) => {
@@ -47,7 +49,7 @@ function RichiesteForm(props) {
         (e) => e._id
       );
       richiestaState.note = richiestaDb.note;
-      richiestaState.avanzamento = richiestaDb.avanzamento;
+      richiestaState.avanzamento = richiestaDb.avanzamento || 0;
       richiestaState.priorita = richiestaDb.priorita;
       richiestaState.dataCreazione = richiestaDb.dataCreazione.substring(0, 16);
       setRichiesta(richiestaState);
@@ -59,7 +61,6 @@ function RichiesteForm(props) {
     try {
       const { data: utenti } = await userService.get();
       const developers = utenti.filter((e) => e.roles.includes("DEVELOPER"));
-      setAllUser(utenti);
       setAllDeveloper(developers);
     } catch (err) {
       if (err.response && err.response.data) toast.error(err.response.data);
@@ -92,7 +93,8 @@ function RichiesteForm(props) {
     ottieniTuttiDati(props.match.params.id);
   }, [props.match.params.id]);
 
-  const doSubmit = async () => {
+  const doSubmit = async (e) => {
+    e.preventDefault();
     try {
       console.log(richiesta);
     } catch (err) {
@@ -168,6 +170,30 @@ function RichiesteForm(props) {
               error={errors.idStato}
             />
           </div>
+          <div className="col">
+            <Input
+              name="avanzamento"
+              label="Avanzamento %"
+              value={richiesta.avanzamento}
+              onChange={handleChange}
+              error={errors.avanzamento}
+              type="range"
+              min="0"
+              max="100"
+            />
+          </div>
+          <div className="col">
+            <Input
+              name="priorita"
+              label="Priorita'"
+              value={richiesta.priorita}
+              onChange={handleChange}
+              error={errors.priorita}
+              type="number"
+              min={0}
+              max={100}
+            />
+          </div>
         </div>
         <MultipleInput
           values={richiesta.idResponsabili}
@@ -186,6 +212,13 @@ function RichiesteForm(props) {
           error={errors.note}
           type="textarea"
         />
+        <button
+          className="btn btn-primary"
+          type="submit"
+          disabled={Object.keys(errors).length !== 0}
+        >
+          Salva
+        </button>
       </form>
     </div>
   );
